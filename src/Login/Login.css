@@ -1,0 +1,77 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  background: linear-gradient(to right, #298a5f, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  height: 100vh;           
+}
+
+.login-card {
+  height: 75vh;
+  width: 100%;
+  max-width: 30vw;
+  border-radius: 20px;    
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+      padding: 20px;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  background-color: rgba(254, 254, 254, 0.6);}
+
+.login-card h1{
+    font-size: 1.5em;
+    padding-top: 10px;
+    font-weight: 500;
+}
+
+.login-card p{
+    font-size: 0.9em;
+    padding-top: 5px;
+    color: gray;
+}
+
+.label{
+    display: block; 
+    padding-top: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+    .input {
+    width: 100%;
+    padding: 10px 10px;
+    margin-top: 8px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    outline: none; 
+        border: none;
+    
+    }
+
+    .button{
+           width: 100%;
+    padding: 10px 10px;
+    margin-top: 15px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    outline: none; 
+        border: none;
+        background-color: rgb(249 115 22);
+        color: white;
+        font-weight: 600;
+    }
+
+.reset{
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: rgb(75 85 99);
+            font-weight: 400;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        text-decoration: none;
+}
