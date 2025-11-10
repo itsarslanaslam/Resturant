@@ -15,12 +15,12 @@ const Login = () => {
     console.log('Username:', values.username);
     console.log('Password:', values.password);
 
-    // 🧹 Clear input fields after successful login
+    // Clear input fields after successful login
     values.username = '';
     values.password = '';
   };
 
-  // 🕒 Automatically clear success message after 4 seconds
+  //  clear success message after 4 seconds
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
@@ -31,6 +31,7 @@ const Login = () => {
   }, [success]);
 
   return (
+    
     <div className="body">
       <div className="login-card">
         <h1>Welcome Back</h1>
@@ -44,7 +45,7 @@ const Login = () => {
             placeholder="Enter your username"
             className={`input ${
               touched.username && errors.username ? 'input-error' : ''
-            }`}
+            }` }
             value={values.username}
             onChange={handleChange}
             onBlur={handleBlur}
