@@ -62,18 +62,11 @@ axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
         <form onSubmit={(e) => handleSubmit(e, onSubmit)}>
           {/* Email */}
           <label className="label">Email</label>
-          <input
-            name="email"
-            type="email"
-            placeholder="Enter your Email"
-            className={`input ${
+          <input name="email" type="email" placeholder="Enter your Email" 
+          className={`input ${
               touched.email && errors.email ? 'input-error' : ''
             }`}
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            minLength={3}
-            maxLength={20}
+            value={values.email} onChange={handleChange} onBlur={handleBlur} minLength={3} maxLength={20}
           />
           {touched.email && errors.email && (
             <p className="error-text">{errors.email}</p>
@@ -81,16 +74,11 @@ axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
 
           {/* Password */}
           <label className="label">Password</label>
-          <input
-            name="password"
-            type="password"
-            placeholder="Enter your password"
-            className={`input ${
+          <input name="password" type="password" placeholder="Enter your password" 
+          className={`input ${
               touched.password && errors.password ? 'input-error' : ''
             }`}
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
+            value={values.password} onChange={handleChange} onBlur={handleBlur}
           />
           {touched.password && errors.password && (
             <p className="error-text">{errors.password}</p>
