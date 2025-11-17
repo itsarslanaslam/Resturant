@@ -14,10 +14,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token  = localStorage.getItem('token')
       try {
         const res = await axios.get("https://api.escuelajs.co/api/v1/auth/profile", {
           headers: {
-            Authorization: `Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjc0NDk0MDI4fQ.kCak9sLJr74frSRVQp0_27BY4iBCgQSmoT3vQVWKzJg"`,
+            Authorization: `Bearer ${token}`,
           },
         });
         setData({
