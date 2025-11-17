@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../../assets/logo.png";
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
   const [openSettings, setOpenSettings] = useState(false);
@@ -21,6 +23,15 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+const navigate = useNavigate();
+
+  const handleLogout = () => {
+  localStorage.removeItem("token");
+  setOpenProfile(false); // close dropdown
+  navigate("/login");
+};
+
 
   return (
     <>
@@ -97,7 +108,7 @@ const Navbar = () => {
                 <button className="w-full text-left px-4! py-2 hover:bg-gray-100">
                   Change Password
                 </button>
-                <button className="w-full text-left px-4! py-2 hover:bg-red-100 text-red-600">
+                <button onClick={handleLogout} className="w-full text-left px-4! py-2 hover:bg-red-100 text-red-600">
                   Logout
                 </button>
               </div>

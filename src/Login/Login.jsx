@@ -78,7 +78,7 @@ axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
           className={`input ${
               touched.password && errors.password ? 'input-error' : ''
             }`}
-            value={values.password} onChange={handleChange} onBlur={handleBlur}
+            value={values.password} onChange={handleChange}onBlur={handleBlur}
           />
           {touched.password && errors.password && (
             <p className="error-text">{errors.password}</p>
