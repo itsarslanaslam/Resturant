@@ -3,24 +3,47 @@ import '../Login/Login.css';
 import { Link } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import validateLogin from './validationLogin';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+
 
 const Login = () => {
   const [success, setSuccess] = useState('');
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormValidation({ username: '', password: '' }, validateLogin);
+  const {
+    values, errors, touched, handleChange, handleBlur, handleSubmit,} = useFormValidation(
+    { email: '', password: '' }, validateLogin
+  );
+
+  const navigate = useNavigate();
+
 
   const onSubmit = () => {
-    setSuccess('✅ Login successful! Redirecting to dashboard...');
-    console.log('Username:', values.username);
-    console.log('Password:', values.password);
 
-    // Clear input fields after successful login
-    values.username = '';
-    values.password = '';
-  };
+    const payload = {
+      email: values.email,
+      password: values.password,
+    };
 
-  //  clear success message after 4 seconds
+    // console.log('Output:', payload);
+
+axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
+.then((res)=>{
+        // saved token
+  localStorage.setItem("token", res.data.access_token)
+      setSuccess('Login successful!');
+  console.log("Login Successful", res);  
+  setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
+})
+.catch((err)=>{
+        setSuccess('Email or Password is incorrect');
+  console.log("Login Failed", err);  
+})
+
+};
+
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
@@ -31,31 +54,32 @@ const Login = () => {
   }, [success]);
 
   return (
-    
     <div className="body">
       <div className="login-card">
         <h1>Welcome Back</h1>
         <p>Please sign in to continue to your dashboard.</p>
 
         <form onSubmit={(e) => handleSubmit(e, onSubmit)}>
-          <label className="label">Username</label>
+          {/* Email */}
+          <label className="label">Email</label>
           <input
-            name="username"
-            type="text"
-            placeholder="Enter your username"
+            name="email"
+            type="email"
+            placeholder="Enter your Email"
             className={`input ${
-              touched.username && errors.username ? 'input-error' : ''
-            }` }
-            value={values.username}
+              touched.email && errors.email ? 'input-error' : ''
+            }`}
+            value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
             minLength={3}
             maxLength={20}
           />
-          {touched.username && errors.username && (
-            <p className="error-text">{errors.username}</p>
+          {touched.email && errors.email && (
+            <p className="error-text">{errors.email}</p>
           )}
 
+          {/* Password */}
           <label className="label">Password</label>
           <input
             name="password"
