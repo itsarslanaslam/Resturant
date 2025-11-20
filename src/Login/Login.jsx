@@ -12,7 +12,7 @@ const Login = () => {
 
   const {
     values, errors, touched, handleChange, handleBlur, handleSubmit,} = useFormValidation(
-    { email: '', password: '' }, validateLogin
+    { username: '', password: '' }, validateLogin
   );
 
   const navigate = useNavigate();
@@ -20,27 +20,37 @@ const Login = () => {
 
   const onSubmit = () => {
 
-    const payload = {
-      email: values.email,
-      password: values.password,
-    };
+    
+console.log("Username:", values.username);
+  console.log("Password:", values.password);
 
-    // console.log('Output:', payload);
+const formData = new URLSearchParams();
+formData.append("grant_type", "password");
+formData.append("username", values.username);
+formData.append("password", values.password);
+formData.append("scope", "");
+formData.append("client_id", "");
+formData.append("client_secret", "");
 
-axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
-.then((res)=>{
-        // saved token
-  localStorage.setItem("token", res.data.access_token)
-      setSuccess('Login successful!');
-  console.log("Login Successful", res);  
-  setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
+
+
+axios.post("https://eatrove-api.mydemo.co/api/login", formData, {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
 })
-.catch((err)=>{
-        setSuccess('Email or Password is incorrect');
-  console.log("Login Failed", err);  
-})
+  .then((res) => {
+localStorage.setItem("token", res.data.data.access_token);
+    setSuccess("Login successful!");
+    console.log("Login Successful", res);
+      console.log("Login Response:", res.data);
+    setTimeout(() => navigate("/dashboard"), 1000);
+  })
+  .catch((err) => {
+    console.log("Login Failed", err.response?.data);
+    setSuccess("Username or Password is incorrect");
+  });
+
 
 };
 
@@ -48,7 +58,7 @@ axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
     if (success) {
       const timer = setTimeout(() => {
         setSuccess('');
-      }, 4000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [success]);
@@ -60,16 +70,16 @@ axios.post('https://api.escuelajs.co/api/v1/auth/login', payload)
         <p>Please sign in to continue to your dashboard.</p>
 
         <form onSubmit={(e) => handleSubmit(e, onSubmit)}>
-          {/* Email */}
-          <label className="label">Email</label>
-          <input name="email" type="email" placeholder="Enter your Email" 
+          {/* Username */}
+          <label className="label">Username</label>
+          <input name="username" type="text" placeholder="Enter your Username" 
           className={`input ${
-              touched.email && errors.email ? 'input-error' : ''
+              touched.username && errors.username ? 'input-error' : ''
             }`}
-            value={values.email} onChange={handleChange} onBlur={handleBlur} minLength={3} maxLength={20}
+            value={values.username} onChange={handleChange} onBlur={handleBlur} minLength={3} maxLength={20}
           />
-          {touched.email && errors.email && (
-            <p className="error-text">{errors.email}</p>
+          {touched.username && errors.username && (
+            <p className="error-text">{errors.username}</p>
           )}
 
           {/* Password */}

@@ -13,26 +13,36 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const token  = localStorage.getItem('token')
-      try {
-        const res = await axios.get("https://api.escuelajs.co/api/v1/auth/profile", {
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+console.log("Saved token:", token);
+
+    try {
+      const res = await axios.get(
+        "https://eatrove-api.mydemo.co/api/dashboard/admin?date=2025-10-07",
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        setData({
-          totalCustomers: res.data.totalCustomers,
-          totalReservations: res.data.totalReservations,
-          availableTables: res.data.availableTables,
-          activeLoyalty: res.data.activeLoyalty,
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+        }
+      );
+
+      console.log("Dashboard Response:", res.data);
+
+      setData({
+        totalCustomers: res.data.stats.total_customers,
+        totalReservations: res.data.stats.total_reservations,
+        availableTables: res.data.stats.available_tables,
+        activeLoyalty: res.data.stats.active_members,
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  fetchData();
+}, []);
+
 
   return (
     <>

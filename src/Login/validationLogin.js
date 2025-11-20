@@ -1,12 +1,12 @@
 export default function validateLogin(values) {
   const errors = {};
 
-  if (!values.email.trim()) {
-    errors.email = 'email is required.';
-  } else if (values.email.length < 13) {
-    errors.email = 'email must be at least 13 characters.';
-  } else if (values.email.length > 25) {
-    errors.email = 'email cannot exceed 20 characters.';
+  if (!values.username.trim()) {
+    errors.username = 'Username is required.';
+  } else if (values.username.length < 13) {
+    errors.username = 'Username must be at least 13 characters.';
+  } else if (values.username.length > 25) {
+    errors.username = 'Username cannot exceed 20 characters.';
   }
 
   if (!values.password.trim()) {
